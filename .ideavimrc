@@ -1,0 +1,14 @@
+Plug 'tpope/vim-surround'
+
+set ideastatusicon=gray
+set ideajoin=true
+set clipboard
+set ideamarks
+
+set number relativenumber
+
+set showmode
+set showcmd
+
+set scrolloff=2
+set incsearch

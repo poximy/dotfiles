@@ -1,0 +1,10 @@
+[user]
+	name = poximy
+	email = 76846708+poximy@users.noreply.github.com
+[color]
+	ui = auto
+[core]
+	editor = code --wait
+	autocrlf = input
+[init]
+	defaultBranch = main
