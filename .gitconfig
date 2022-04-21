@@ -8,3 +8,6 @@
 	autocrlf = input
 [init]
 	defaultBranch = main
+[alias]
+	og = log --oneline --graph
+	undo = reset --soft HEAD^
