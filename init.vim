@@ -3,10 +3,12 @@ Plug 'mattn/emmet-vim'
 Plug 'tpope/vim-fugitive'
 Plug 'lewis6991/gitsigns.nvim'
 
+Plug 'preservim/nerdtree'
 Plug 'windwp/nvim-autopairs'
 Plug 'nvim-lualine/lualine.nvim'
+Plug 'kyazdani42/nvim-web-devicons'
 
-Plug 'navarasu/onedark.nvim'
+Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 Plug 'fatih/vim-go'
@@ -25,7 +27,7 @@ set smartcase
 set nohlsearch
 
 set splitbelow splitright
-set scrolloff=8
+set scrolloff=2
 set laststatus=2
 
 set nowrap
@@ -52,27 +54,30 @@ set updatetime=100
 
 highlight Normal guibg=none
 highlight Normal ctermbg=none
+colorscheme dracula
+
+nnoremap <leader>n :NERDTreeFocus<CR>
+nnoremap <C-n> :NERDTree<CR>
+nnoremap <C-t> :NERDTreeToggle<CR>
+nnoremap <C-f> :NERDTreeFind<CR>
 
 lua << EOF
 require('lualine').setup {
 	options = {
-    icons_enabled = false, --Nerf Font
+    icons_enabled = true,
     theme = 'auto',
+		component_separators = { left = '|', right = '|'},
+		section_separators = { left = '', right = ''},
+  },
+  sections = {
+    lualine_a = {'mode'},
+    lualine_b = {'branch', 'diff', 'diagnostics'},
+    lualine_c = {'filename'},
+    lualine_x = {'filesize'},
+    lualine_y = {'encoding'},
+    lualine_z = {'location'}
   },
 }
-
-require('onedark').setup {
-    style = 'dark',
-		transparent = true,
-		code_style = {
-        comments = 'italic',
-        keywords = 'italic',
-        functions = 'bold',
-        strings = 'none',
-        variables = 'none'
-    },
-}
-require('onedark').load()
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
