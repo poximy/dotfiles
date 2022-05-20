@@ -1,12 +1,12 @@
 call plug#begin()
 Plug 'mattn/emmet-vim'
+
 Plug 'tpope/vim-fugitive'
 Plug 'lewis6991/gitsigns.nvim'
 
 Plug 'preservim/nerdtree'
 Plug 'windwp/nvim-autopairs'
 Plug 'nvim-lualine/lualine.nvim'
-Plug 'kyazdani42/nvim-web-devicons'
 
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -64,7 +64,7 @@ nnoremap <C-f> :NERDTreeFind<CR>
 lua << EOF
 require('lualine').setup {
 	options = {
-    icons_enabled = true,
+    icons_enabled = false, -- nerd font
     theme = 'auto',
 		component_separators = { left = '|', right = '|'},
 		section_separators = { left = '', right = ''},
@@ -144,7 +144,7 @@ require('nvim-autopairs').setup{}
 
 require'nvim-treesitter.configs'.setup {
 	ensure_installed = {
-		"go", "python", "typescript", "javascript", "tsx", "lua",
+		"go", "python", "typescript", "javascript", "tsx", "lua", "prisma",
 		"vim", "dockerfile", "json", "yaml", "markdown", "comment",
 	},
   highlight = {
