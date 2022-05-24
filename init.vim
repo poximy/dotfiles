@@ -54,6 +54,8 @@ set updatetime=100
 
 highlight Normal guibg=none
 highlight Normal ctermbg=none
+
+" dracula is compatible with Terminal.App
 colorscheme dracula
 
 nnoremap <leader>n :NERDTreeFocus<CR>
