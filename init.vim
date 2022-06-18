@@ -11,7 +11,7 @@ Plug 'nvim-lualine/lualine.nvim'
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
-Plug 'fatih/vim-go'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/nvim-cmp'
@@ -30,7 +30,7 @@ set splitbelow splitright
 set scrolloff=2
 set laststatus=2
 
-set nowrap
+" set nowrap
 set shiftwidth=2
 set tabstop=2 softtabstop=2
 
@@ -50,12 +50,11 @@ set encoding=utf-8
 set clipboard+=unnamedplus
 
 set lazyredraw
-set updatetime=100
+set updatetime=1000
 
+syntax on
 highlight Normal guibg=none
 highlight Normal ctermbg=none
-
-" dracula is compatible with Terminal.App
 colorscheme dracula
 
 nnoremap <leader>n :NERDTreeFocus<CR>
@@ -65,11 +64,11 @@ nnoremap <C-f> :NERDTreeFind<CR>
 
 lua << EOF
 require('lualine').setup {
-	options = {
+    options = {
     icons_enabled = false, -- nerd font
     theme = 'auto',
-		component_separators = { left = '|', right = '|'},
-		section_separators = { left = '', right = ''},
+        component_separators = { left = '|', right = '|'},
+        section_separators = { left = '', right = ''},
   },
   sections = {
     lualine_a = {'mode'},
@@ -86,7 +85,7 @@ capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
 local lspconfig = require('lspconfig')
 
-local servers = { 'tsserver', 'tailwindcss', 'eslint', 'jsonls', 'dockerls', 'pyright' }
+local servers = { 'tsserver', 'tailwindcss', 'eslint', 'jsonls', 'dockerls', 'pyright', 'svelte' }
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     -- on_attach = my_custom_on_attach,
@@ -95,7 +94,7 @@ for _, lsp in ipairs(servers) do
 end
 
 require'lspconfig'.gopls.setup{
-	cmd = { "/Users/poximy/go/bin/gopls" }
+    cmd = { "/Users/poximy/go/bin/gopls" }
 }
 
 local luasnip = require 'luasnip'
@@ -145,13 +144,40 @@ require('gitsigns').setup()
 require('nvim-autopairs').setup{}
 
 require'nvim-treesitter.configs'.setup {
-	ensure_installed = {
-		"go", "python", "typescript", "javascript", "tsx", "lua", "prisma",
-		"vim", "dockerfile", "json", "yaml", "markdown", "comment",
-	},
+    ensure_installed = {
+        "go", "python", "typescript", "javascript", "tsx", "lua", "prisma", "svelte",
+        "vim", "dockerfile", "json", "yaml", "markdown", "comment",
+    },
   highlight = {
-    enable = true,
-    additional_vim_regex_highlighting = false,
-  },
+        enable = true,
+        additional_vim_regex_highlighting = false,
+    },
 }
+
+local opts = { noremap=true, silent=true }
+vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
+
+local on_attach = function(client, bufnr)
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+  local bufopts = { noremap=true, silent=true, buffer=bufnr }
+  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+  vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
+  vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
+  vim.keymap.set('n', '<space>wl', function()
+    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  end, bufopts)
+  vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
+  vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
+  vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
+  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+  vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
+end
 EOF
