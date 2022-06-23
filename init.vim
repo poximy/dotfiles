@@ -11,6 +11,7 @@ Plug 'nvim-lualine/lualine.nvim'
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
+Plug 'prettier/vim-prettier'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 Plug 'neovim/nvim-lspconfig'
@@ -30,7 +31,7 @@ set splitbelow splitright
 set scrolloff=2
 set laststatus=2
 
-" set nowrap
+set nowrap
 set shiftwidth=2
 set tabstop=2 softtabstop=2
 
@@ -51,6 +52,11 @@ set clipboard+=unnamedplus
 
 set lazyredraw
 set updatetime=1000
+
+" prettier
+let g:prettier#exec_cmd_async = 1
+let g:prettier#quickfix_enabled = 0
+autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.svelte,*.yaml,*.html,*.svelte PrettierAsync
 
 syntax on
 highlight Normal guibg=none
