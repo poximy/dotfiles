@@ -9,5 +9,6 @@
 [init]
 	defaultBranch = main
 [alias]
+	s = status -s
 	og = log --oneline --graph
 	undo = reset --soft HEAD^
