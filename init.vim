@@ -28,7 +28,7 @@ set smartcase
 set nohlsearch
 
 set splitbelow splitright
-set scrolloff=2
+set scrolloff=0
 set laststatus=2
 
 set nowrap
