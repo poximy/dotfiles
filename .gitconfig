@@ -9,6 +9,11 @@
 [init]
 	defaultBranch = main
 [alias]
+	# Staging
 	s = status -s
+
+	# log
 	og = log --oneline --graph
+	
+	# misc
 	undo = reset --soft HEAD^
