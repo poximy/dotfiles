@@ -8,6 +8,8 @@
 	autocrlf = input
 [init]
 	defaultBranch = main
+[diff]
+	tool = nvim -d
 [alias]
 	# Staging
 	s = status -s
