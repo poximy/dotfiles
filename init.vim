@@ -96,7 +96,10 @@ capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
 local lspconfig = require('lspconfig')
 
-local servers = { 'tsserver', 'tailwindcss', 'eslint', 'jsonls', 'dockerls', 'pyright', 'svelte' }
+local servers = {
+    'tsserver', 'tailwindcss', 'eslint', 'jsonls', 'dockerls',
+    'pyright', 'svelte', 'graphql', 'html', 'cssls'
+}
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     -- on_attach = my_custom_on_attach,
@@ -156,8 +159,9 @@ require('nvim-autopairs').setup{}
 
 require'nvim-treesitter.configs'.setup {
     ensure_installed = {
-        "go", "python", "typescript", "javascript", "tsx", "lua", "prisma", "svelte",
-        "vim", "dockerfile", "json", "yaml", "markdown", "comment",
+        "go", "python", "typescript", "javascript", "tsx", "svelte", "html", "css",
+        "jsdoc", "json", "prisma", "graphql", "proto", "dockerfile", "vim", "lua",
+        "yaml", "markdown", "comment", "markdown_inline" 
     },
   highlight = {
         enable = true,
