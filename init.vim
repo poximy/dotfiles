@@ -51,7 +51,7 @@ set encoding=utf-8
 set clipboard+=unnamedplus
 
 set lazyredraw
-set updatetime=1000
+set updatetime=100
 
 " prettier
 let g:prettier#exec_cmd_async = 1
