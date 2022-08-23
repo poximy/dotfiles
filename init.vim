@@ -98,7 +98,7 @@ local lspconfig = require('lspconfig')
 
 local servers = {
     'tsserver', 'tailwindcss', 'eslint', 'jsonls', 'dockerls',
-    'pyright', 'svelte', 'graphql', 'html', 'cssls'
+    'pyright', 'svelte', 'html', 'cssls'
 }
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
