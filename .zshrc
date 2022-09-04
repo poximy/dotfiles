@@ -14,9 +14,9 @@ ZSH_THEME="minimal"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(macos fancy-ctrl-z safe-paste copyfile)
 
-alias zshconfig="nvim ~/.zshrc"
-alias gitconfig="nvim ~/.gitconfig"
-alias nvimconfig="nvim ~/.config/nvim/init.vim"
+alias zshconfig="code ~/.zshrc"
+alias gitconfig="code ~/.gitconfig"
+alias nvimconfig="code ~/.config/nvim/init.vim"
 
 zstyle ':omz:update' mode auto
 
