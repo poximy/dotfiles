@@ -23,6 +23,7 @@
 	# log
 	og = log --oneline --graph
 	last = log -1 HEAD --stat
+	oneline = log --oneline
 
 	# branch
 	del = branch -D
