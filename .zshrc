@@ -1,6 +1,3 @@
-eval "$(starship init zsh)"
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-
 # brew pnpm config
 export PATH="$PNPM_HOME:$PATH"
 export PNPM_HOME="/Users/poximy/Library/pnpm"
