@@ -6,7 +6,7 @@ export PNPM_HOME="/Users/poximy/Library/pnpm"
 export PATH=/opt/homebrew/bin:$PATH
 
 alias zshconfig="nvim ~/.zshrc"
-alias fishconfig=".config/fish/config.fish"
+alias fishconfig="nvim ~/.config/fish/config.fish"
 
 alias gitconfig="nvim ~/.gitconfig"
 alias nvimconfig="nvim ~/.config/nvim"
