@@ -1,6 +1,6 @@
 local M = {}
 
-# keymaping lua -> vimscript
+-- keymaping lua -> vimscript
 function M.map(mode, lhs, rhs, opts)
     local options = { noremap = true }
     if opts then
