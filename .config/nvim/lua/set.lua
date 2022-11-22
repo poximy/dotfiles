@@ -48,7 +48,6 @@ map("n", "<C-t>", ":NvimTreeToggle<CR>")
 
 -- autocomands
 vim.cmd [[
-autocmd BufWritePre *.go :silent! lua require('go.format').gofmt()
 autocmd BufWritePre (InsertLeave?) <buffer> lua vim.lsp.buf.formatting_sync(nil,500)
 ]]
 
@@ -79,3 +78,12 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
   vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
 end
+
+-- go
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*.go",
+  callback = function()
+   require('go.format').goimport()
+  end,
+  group = format_sync_grp,
+})
