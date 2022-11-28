@@ -2,6 +2,11 @@ return require('packer').startup(function(use)
 	use 'wbthomason/packer.nvim'
 
 	-- lsp & syntax
+	use 'neovim/nvim-lspconfig'
+	use 'hrsh7th/cmp-nvim-lsp'
+	use 'hrsh7th/cmp-buffer'
+	use 'hrsh7th/cmp-path'
+	use 'hrsh7th/cmp-cmdline'
 	use {
 		'nvim-treesitter/nvim-treesitter',
 		run = ':TSUpdate',
@@ -20,11 +25,6 @@ return require('packer').startup(function(use)
 		end
 	}
 
-	use 'neovim/nvim-lspconfig'
-	use 'hrsh7th/cmp-nvim-lsp'
-	use 'hrsh7th/cmp-buffer'
-	use 'hrsh7th/cmp-path'
-	use 'hrsh7th/cmp-cmdline'
 	use {
 		'hrsh7th/nvim-cmp',
 		config = function()
@@ -78,8 +78,7 @@ return require('packer').startup(function(use)
 					{ name = 'cmdline' }
 				})
 			})
-
-			local capabilities = require('cmp_nvim_lsp').default_capabilities()
+			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			local servers = {
 				'tsserver', 'tailwindcss', 'eslint', 'jsonls', 'dockerls',
 				'pyright', 'svelte', 'html', 'cssls'
