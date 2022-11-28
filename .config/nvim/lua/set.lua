@@ -44,8 +44,6 @@ colorscheme dracula
 -- keymaps
 local map = require("utils").map
 
-map("n", "<C-t>", ":NvimTreeToggle<CR>")
-
 -- autocomands
 vim.cmd [[
 autocmd BufWritePre (InsertLeave?) <buffer> lua vim.lsp.buf.formatting_sync(nil,500)
