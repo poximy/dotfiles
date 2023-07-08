@@ -4,18 +4,12 @@
 [color]
 	ui = auto
 [core]
-	editor = code --wait
+	editor = nvim
 	autocrlf = input
 [init]
 	defaultBranch = main
 [diff]
- 	tool = vscode
-[difftool "vscode"]
-	cmd = code --wait --diff $LOCAL $REMOTE
-[merge]
- 	tool = vscode
-[mergetool "vscode"]
- 	cmd = code --wait $MERGED
+ 	tool = nvim -d
 [alias]
 	# Staging
 	s = status -s
