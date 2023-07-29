@@ -42,8 +42,28 @@ return {
 	{
 		'lewis6991/gitsigns.nvim',
 		config = function()
-			require('gitsigns').setup()
-		end
+			require('gitsigns').setup {
+				numhl = true,
+
+				on_attach = function(bufnr)
+					local gs = package.loaded.gitsigns
+
+					vim.keymap.set('n', '<leader>hs', gs.stage_hunk)
+					vim.keymap.set('n', '<leader>hr', gs.reset_hunk)
+					vim.keymap.set('v', '<leader>hs', function() gs.stage_hunk { vim.fn.line('.'), vim.fn.line('v') } end)
+					vim.keymap.set('v', '<leader>hr', function() gs.reset_hunk { vim.fn.line('.'), vim.fn.line('v') } end)
+					vim.keymap.set('n', '<leader>hS', gs.stage_buffer)
+					vim.keymap.set('n', '<leader>hu', gs.undo_stage_hunk)
+					vim.keymap.set('n', '<leader>hR', gs.reset_buffer)
+					vim.keymap.set('n', '<leader>hp', gs.preview_hunk)
+					vim.keymap.set('n', '<leader>hb', function() gs.blame_line { full = true } end)
+					vim.keymap.set('n', '<leader>tb', gs.toggle_current_line_blame)
+					vim.keymap.set('n', '<leader>hd', gs.diffthis)
+					vim.keymap.set('n', '<leader>hD', function() gs.diffthis('~') end)
+					vim.keymap.set('n', '<leader>td', gs.toggle_deleted)
+				end,
+			}
+		end,
 	},
 	-- LSP
 	'neovim/nvim-lspconfig',
@@ -70,11 +90,12 @@ return {
 					documentation = cmp.config.window.bordered(),
 				},
 				mapping = cmp.mapping.preset.insert({
-					['<c-b>'] = cmp.mapping.scroll_docs(-4),
-					['<c-f>'] = cmp.mapping.scroll_docs(4),
-					['<c-space>'] = cmp.mapping.complete(),
-					['<c-e>'] = cmp.mapping.abort(),
-					['<cr>'] = cmp.mapping.confirm({ select = true }),
+					['<C-space>'] = cmp.mapping.complete(),
+					['<C-e>'] = cmp.mapping.abort(),
+					['<CR>'] = cmp.mapping.confirm(),
+					-- Only usable when docs cannot fit in preview window
+					['<C-u>'] = cmp.mapping.scroll_docs(-4),
+					['<C-d>'] = cmp.mapping.scroll_docs(4),
 				}),
 				sources = cmp.config.sources({
 					{ name = 'nvim_lsp' },
@@ -110,7 +131,7 @@ return {
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			local servers = {
 				'tsserver', 'tailwindcss', 'eslint', 'jsonls', 'dockerls',
-				'pyright', 'html', 'cssls', 'emmet_ls'
+				'pyright', 'html', 'cssls', 'emmet_ls', 'lua_ls',
 			}
 
 			local lspconfig = require('lspconfig')
@@ -123,6 +144,24 @@ return {
 			lspconfig.gopls.setup {
 				cmd = { '/Users/poximy/go/bin/gopls' }
 			}
+			require 'lspconfig'.lua_ls.setup {
+				settings = {
+					Lua = {
+						runtime = {
+							version = 'LuaJIT',
+						},
+						diagnostics = {
+							globals = { 'vim' },
+						},
+						workspace = {
+							library = vim.api.nvim_get_runtime_file("", true),
+						},
+						telemetry = {
+							enable = false,
+						},
+					},
+				},
+			}
 		end
 	},
 
@@ -131,6 +170,15 @@ return {
 		'ray-x/go.nvim',
 		config = function()
 			require('go').setup()
+
+			local format_sync_grp = vim.api.nvim_create_augroup("GoImport", {})
+			vim.api.nvim_create_autocmd("BufWritePre", {
+				pattern = "*.go",
+				callback = function()
+					require('go.format').goimport()
+				end,
+				group = format_sync_grp,
+			})
 		end
 	},
 
@@ -142,6 +190,9 @@ return {
 		build = ':TSUpdate',
 		config = function()
 			require 'nvim-treesitter.configs'.setup {
+				auto_install = true,
+				sync_install = true,
+				ignore_install = {},
 				ensure_installed = {
 					"go", "gomod", "gosum", "python", "html", "css", "javascript",
 					"typescript", "jsdoc", "json", "dockerfile", "vim", "lua", "fish",
@@ -161,4 +212,41 @@ return {
 			require('nvim-autopairs').setup()
 		end
 	},
+	{
+		'nvim-telescope/telescope.nvim',
+		dependencies = { 'nvim-lua/plenary.nvim' },
+		config = function()
+			local builtin = require('telescope.builtin')
+			vim.keymap.set('n', '<space>ff', builtin.find_files, {})
+			vim.keymap.set('n', '<space>fb', builtin.buffers, {})
+		end
+	},
+	{
+		'nvim-tree/nvim-tree.lua',
+		config = function()
+			vim.g.loaded_netrw = 1
+			vim.g.loaded_netrwPlugin = 1
+
+			require("nvim-tree").setup {
+				view = {
+					side = 'right',
+					width = 32,
+					adaptive_size = true
+				},
+				renderer = {
+					icons = {
+						show = {
+							file = false,
+							folder = false,
+							folder_arrow = false,
+							git = false,
+						}
+					}
+				}
+			}
+
+			local api = require 'nvim-tree.api'
+			vim.keymap.set('n', '<space>t', api.tree.toggle)
+		end,
+	}
 }
