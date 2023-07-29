@@ -9,7 +9,7 @@
 [init]
 	defaultBranch = main
 [diff]
- 	tool = nvim -d
+ 	tool = nvim -D
 [alias]
 	# Staging
 	s = status -s

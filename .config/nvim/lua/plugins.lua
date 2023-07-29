@@ -15,7 +15,6 @@ return {
 			colorscheme dracula
 			]]
 		end,
-
 	},
 	{
 		'nvim-lualine/lualine.nvim',
@@ -111,7 +110,7 @@ return {
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			local servers = {
 				'tsserver', 'tailwindcss', 'eslint', 'jsonls', 'dockerls',
-				'pyright', 'html', 'cssls'
+				'pyright', 'html', 'cssls', 'emmet_ls'
 			}
 
 			local lspconfig = require('lspconfig')
