@@ -2,7 +2,7 @@ Plug 'tpope/vim-surround'
 
 set ideastatusicon=gray
 set ideajoin=true
-set clipboard
+set clipboard+=unnamedplus
 set ideamarks
 
 set number relativenumber
