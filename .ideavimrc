@@ -2,13 +2,21 @@ Plug 'tpope/vim-surround'
 
 set ideastatusicon=gray
 set ideajoin=true
-set clipboard+=unnamedplus
-set ideamarks
 
-set number relativenumber
+set clipboard^=ideaput
+
+set ideamarks
+set relativenumber
+
+set number
+set relativenumber
 
 set showmode
 set showcmd
+set wildmenu
 
 set scrolloff=2
+
 set incsearch
+set ignorecase
+set smartcase
