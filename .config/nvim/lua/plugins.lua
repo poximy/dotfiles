@@ -131,7 +131,7 @@ return {
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			local servers = {
 				'tsserver', 'tailwindcss', 'eslint', 'jsonls', 'dockerls',
-				'pyright', 'html', 'cssls', 'emmet_ls', 'lua_ls',
+				'pyright', 'html', 'cssls', 'emmet_ls', 'lua_ls', 'astro'
 			}
 
 			local lspconfig = require('lspconfig')
@@ -195,8 +195,8 @@ return {
 				ignore_install = {},
 				ensure_installed = {
 					"go", "gomod", "gosum", "python", "html", "css", "javascript",
-					"typescript", "jsdoc", "json", "dockerfile", "vim", "lua", "fish",
-					"git_config", "gitignore", "diff", "git_rebase", "gitcommit"
+					"typescript", "tsx", "jsdoc", "json", "dockerfile", "vim",
+					"lua", "fish", "git_config", "gitignore", "diff", "git_rebase", "gitcommit"
 				},
 				highlight = {
 					enable = true,
