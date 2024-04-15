@@ -4,7 +4,7 @@ vim.opt.incsearch = true
 vim.opt.smartcase = true
 vim.opt.ignorecase = true
 
-vim.opt.scrolloff = 0
+vim.opt.scrolloff = 2
 vim.opt.laststatus = 2
 vim.opt.splitbelow = true
 
@@ -33,4 +33,4 @@ vim.opt.encoding = "utf-8"
 vim.opt.clipboard = "unnamedplus"
 
 vim.opt.lazyredraw = true
-vim.opt.updatetime = 100
+vim.opt.updatetime = 250
