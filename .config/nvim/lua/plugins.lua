@@ -130,8 +130,8 @@ return {
 			})
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			local servers = {
-				'tsserver', 'tailwindcss', 'eslint', 'jsonls', 'dockerls',
-				'pyright', 'html', 'cssls', 'emmet_ls', 'lua_ls', 'astro'
+				'ts_ls', 'ts_ls', 'tailwindcss', 'jsonls', 'dockerls',
+				'pyright', 'html', 'cssls', 'lua_ls', 'astro',
 			}
 
 			local lspconfig = require('lspconfig')
@@ -144,7 +144,8 @@ return {
 			lspconfig.gopls.setup {
 				cmd = { '/Users/poximy/go/bin/gopls' }
 			}
-			require 'lspconfig'.lua_ls.setup {
+
+			lspconfig.lua_ls.setup {
 				settings = {
 					Lua = {
 						runtime = {
@@ -218,6 +219,7 @@ return {
 		config = function()
 			local builtin = require('telescope.builtin')
 			vim.keymap.set('n', '<space>ff', builtin.find_files, {})
+			vim.keymap.set('n', '<space>fg', builtin.live_grep, {})
 			vim.keymap.set('n', '<space>fb', builtin.buffers, {})
 		end
 	},
@@ -248,5 +250,5 @@ return {
 			local api = require 'nvim-tree.api'
 			vim.keymap.set('n', '<space>t', api.tree.toggle)
 		end,
-	}
+	},
 }
