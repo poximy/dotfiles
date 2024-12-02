@@ -130,8 +130,8 @@ return {
 			})
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			local servers = {
-				'ts_ls', 'ts_ls', 'tailwindcss', 'jsonls', 'dockerls',
-				'pyright', 'html', 'cssls', 'lua_ls', 'astro',
+				'ts_ls', 'ts_ls', 'tailwindcss', 'jsonls', 'dockerls', 'pyright',
+				'html', 'cssls', 'lua_ls', 'astro', 'emmet_language_server',
 			}
 
 			local lspconfig = require('lspconfig')
